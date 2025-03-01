@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Journey of the Three Travelers</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            text-align: center;
+            background: url("images/bg.png") no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+            color: white;
+        }
+        #container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
+            display: inline-block;
+            width: 70%;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            color: white;
+        }
+        table, th, td {
+            border: 1px solid white;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        button {
+            margin-top: 10px;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #ff9800;
+            border: none;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #e68900;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>The Journey of the Three Travelers</h1>
+        <p>Three travelers embark on a journey across unknown lands, each carrying supplies of different amounts.</p>
+        <button onclick="generateStory()">Start Adventure</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function generateStory() {
+            let traveler1 = Math.ceil(Math.random() * 20);
+            let traveler2 = Math.ceil(Math.random() * 20);
+            let traveler3 = Math.ceil(Math.random() * 20);
+
+            let mostSupplies = Math.max(traveler1, traveler2, traveler3);
+            let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            let leaderInitial = traveler1 <= 26 ? alphabet[traveler1 - 1] : "(Unknown)";
+
+            let totalDistance = traveler2 * traveler3;
+            let days = Math.floor(totalDistance / 10);
+            let remainingMiles = totalDistance % 10;
+
+            let travelers = {"Traveler A": traveler1, "Traveler B": traveler2, "Traveler C": traveler3};
+            let leaders = Object.keys(travelers).filter(traveler => travelers[traveler] === mostSupplies);
+            let leaderNames = leaders.join(", ");
+
+            document.getElementById("output").innerHTML = `
+                <table>
+                    <tr><th>Traveler A</th><th>Traveler B</th><th>Traveler C</th></tr>
+                    <tr><td>${traveler1}</td><td>${traveler2}</td><td>${traveler3}</td></tr>
+                </table>
+                <h3>The traveler with the most supplies is: ${leaderNames} (${mostSupplies})</h3>
+                <h3>The leader of the group has a name starting with the letter: ${leaderInitial}</h3>
+                <h3>The total journey covered ${totalDistance} miles, which took ${days} days and ${remainingMiles} miles left to complete.</h3>
+            `;
+        }
+    </script>
+</body>
+</html>
+
